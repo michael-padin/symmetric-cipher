@@ -9,7 +9,7 @@ export default function Home() {
 				<h1 className="text-white font-black text-center text-4xl uppercase">
 					Team Padin
 				</h1>
-				<div className="grid grid-cols-2 max-w-screen-lg mx-auto gap-4">
+				<div className="grid lg:grid-cols-2 max-w-screen-lg mx-auto gap-4">
 					<MotionDiv
 						initial={{ opacity: 0, x: -100 }}
 						animate={{ opacity: 1, x: 0 }}
