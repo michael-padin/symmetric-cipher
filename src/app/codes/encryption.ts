@@ -5,16 +5,16 @@ export function caesarCipher(
 	text: string,
 	shift: number,
 ): string {
-	return text
-	.split('')
-	.map((char) => {
-		if (!char.match(/[a-zA-Z]/)) return char; // Keep non-alphabet characters as is
-		const base = char === char.toUpperCase() ? 'A'.charCodeAt(0) : 'a'.charCodeAt(0);
-		return String.fromCharCode(
-			((char.charCodeAt(0) - base + shift + 26) % 26) + base // Adjust for negative shifts
-		);
-	})
-	.join('');
+	 return text
+        .split('')
+        .map((char) => {
+            if (!char.match(/[a-zA-Z]/)) return char; // Keep non-alphabet characters as is
+            const base = char === char.toUpperCase() ? 'A'.charCodeAt(0) : 'a'.charCodeAt(0);
+            return String.fromCharCode(
+                ((char.charCodeAt(0) - base + shift + 26) % 26) + base // Adjust for negative shifts
+            );
+        })
+        .join('');
 }
 
 export function vigenereCipher(
