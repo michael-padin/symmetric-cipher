@@ -5,7 +5,7 @@ import { SymmetricCipher } from "./_components/symmetric-cipher";
 export default function Home() {
 	return (
 		<main className="relative z-10">
-			<div className="mt-4 space-y-8 py-4">
+			<div className="mt-4 space-y-8 p-4">
 				<h1 className="text-white font-black text-center text-4xl uppercase">
 					Team Padin
 				</h1>
