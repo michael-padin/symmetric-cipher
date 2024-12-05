@@ -45,7 +45,7 @@ const MemberCard = ({
 	role: string;
 	avatar: string;
 }) => (
-	<div className="flex items-center space-x-4 p-4 border-b last:border-b-0">
+	<div className="flex items-center space-x-4 p-4 border-b last:border-b-0 w-max lg:border-none">
 		<Avatar>
 			<AvatarImage
 				src={`https://api.dicebear.com/6.x/initials/svg?seed=${avatar}`}
@@ -54,8 +54,8 @@ const MemberCard = ({
 			<AvatarFallback>{avatar}</AvatarFallback>
 		</Avatar>
 		<div>
-			<h3 className="font-semibold">{name}</h3>
-			<p className="text-sm text-gray-500">{role}</p>
+			<h3 className="">{name}</h3>
+			<p className="text-sm text-muted-foreground">{role}</p>
 		</div>
 	</div>
 );
@@ -64,10 +64,12 @@ const MemberList = () => {
 	const isDesktop = useMediaQuery("(min-width: 768px)");
 
 	const content = (
-		<ScrollArea className="h-[400px] md:h-[500px]">
-			{teamMembers.map((member, index) => (
-				<MemberCard key={index} {...member} />
-			))}
+		<ScrollArea className="h-[400px] ">
+			<div className="lg:grid lg:grid-cols-2 w-full lg:gap-2">
+				{teamMembers.map((member, index) => (
+					<MemberCard key={index} {...member} />
+				))}
+			</div>
 		</ScrollArea>
 	);
 
@@ -80,7 +82,7 @@ const MemberList = () => {
 						View Team Members
 					</Button>
 				</DialogTrigger>
-				<DialogContent className="sm:max-w-[425px]">
+				<DialogContent className="max-w-screen-md">
 					<DialogHeader>
 						<DialogTitle>Our Team Members</DialogTitle>
 						<DialogDescription>
