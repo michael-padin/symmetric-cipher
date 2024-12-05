@@ -21,7 +21,8 @@ import {
 } from "@/components/ui/card";
 import {
 	aes,
-	caesarCipher,
+	caesarDecrypt,
+	caesarEncrypt,
 	doubleColumnarTransposition,
 	playfairCipher,
 	singleColumnarTransposition,
@@ -47,7 +48,6 @@ export function SymmetricCipher() {
 	const handleCipher = async () => {
 		setLoading(true);
 		setError("");
-		setResult("");
 
 		try {
 			if (!inputText) throw new Error("Input text is required");
@@ -59,11 +59,11 @@ export function SymmetricCipher() {
 			switch (cipherType) {
 				case "caesar":
 					if (mode === "encrypt") {
-						cipherResult = caesarCipher(inputText, shift);
+						cipherResult = caesarEncrypt(inputText, shift);
 					} else {
-						cipherResult = caesarCipher(result, shift);
-
+						cipherResult = caesarDecrypt(result, shift);
 					}
+					
 					break;
 				case "vigenere":
 					cipherResult = vigenereCipher(inputText, key, mode);

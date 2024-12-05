@@ -1,21 +1,23 @@
 import crypto from "crypto";
 
 // Caesar Cipher
-export function caesarCipher(
-	text: string,
-	shift: number,
-): string {
-	 return text
-        .split('')
+export function caesarEncrypt(text: string, shift: number): string {
+    return text
+        .split("")
         .map((char) => {
-            if (!char.match(/[a-zA-Z]/)) return char; // Keep non-alphabet characters as is
-            const base = char === char.toUpperCase() ? 'A'.charCodeAt(0) : 'a'.charCodeAt(0);
-            return String.fromCharCode(
-                ((char.charCodeAt(0) - base + shift + 26) % 26) + base // Adjust for negative shifts
-            );
+            if (char.match(/[a-z]/i)) {
+                const base = char === char.toUpperCase() ? 65 : 97; // ASCII base for uppercase or lowercase
+                return String.fromCharCode(((char.charCodeAt(0) - base + shift) % 26) + base);
+            }
+            return char; // Keep non-alphabetic characters as is
         })
-        .join('');
+        .join("");
 }
+
+export function caesarDecrypt(text: string, shift: number): string {
+    return caesarEncrypt(text, 26 - (shift % 26)); // Decryption is just encryption with a reversed shift
+}
+
 
 export function vigenereCipher(
 	text: string,
@@ -238,7 +240,11 @@ export function doubleColumnarTransposition(
 	}
 }
 
-export function aes(text: string, key: string, mode: "encrypt" | "decrypt") {
+export  function aes(
+	text: string,
+	key: string,
+	mode: "encrypt" | "decrypt"
+) {
 	if (mode === "encrypt") {
 		const iv = crypto.randomBytes(16);
 		const cipher = crypto.createCipheriv(
@@ -263,3 +269,4 @@ export function aes(text: string, key: string, mode: "encrypt" | "decrypt") {
 		return decrypted.toString();
 	}
 }
+
