@@ -63,7 +63,7 @@ export function SymmetricCipher() {
 					} else {
 						cipherResult = caesarDecrypt(result, shift);
 					}
-					
+
 					break;
 				case "vigenere":
 					cipherResult = vigenereCipher(inputText, key, mode);
@@ -143,7 +143,6 @@ export function SymmetricCipher() {
 						rows={4}
 					/>
 				</div>
-
 				{cipherType === "caesar" ? (
 					<div>
 						<Label htmlFor="shift">Shift (1-25)</Label>
@@ -169,7 +168,6 @@ export function SymmetricCipher() {
 						/>
 					</div>
 				)}
-
 				{cipherType === "doubleColumnar" && (
 					<div>
 						<Label htmlFor="key2">Second Secret Key</Label>
@@ -182,7 +180,6 @@ export function SymmetricCipher() {
 						/>
 					</div>
 				)}
-
 				<div>
 					<Label>What do you want to do?</Label>
 					<RadioGroup
@@ -200,7 +197,6 @@ export function SymmetricCipher() {
 						</div>
 					</RadioGroup>
 				</div>
-
 				<Button
 					onClick={handleCipher}
 					className="w-full bg-purple-600 hover:bg-purple-700"
@@ -215,7 +211,6 @@ export function SymmetricCipher() {
 						<>{mode === "encrypt" ? "Encrypt Message" : "Decrypt Message"}</>
 					)}
 				</Button>
-
 				{error && (
 					<Alert variant="destructive">
 						<AlertTriangle className="h-4 w-4" />
@@ -223,7 +218,6 @@ export function SymmetricCipher() {
 						<AlertDescription>{error}</AlertDescription>
 					</Alert>
 				)}
-
 				{result && (
 					<div>
 						<Label htmlFor="result">
