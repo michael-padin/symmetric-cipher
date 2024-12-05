@@ -109,7 +109,7 @@ const MemberList = () => {
 				{content}
 				<DrawerFooter>
 					<DrawerClose asChild>
-						<Button variant="outline">Close</Button>
+						<Button>Close</Button>
 					</DrawerClose>
 				</DrawerFooter>
 			</DrawerContent>
