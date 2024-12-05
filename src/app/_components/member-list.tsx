@@ -102,9 +102,8 @@ const MemberList = () => {
 			</DrawerTrigger>
 			<DrawerContent>
 				<DrawerHeader>
-					<DrawerTitle>Cipher Academy Team</DrawerTitle>
+					<DrawerTitle>Our Team Members</DrawerTitle>
 					<DrawerDescription>
-						Meet the brilliant minds behind our encryption tools.
 					</DrawerDescription>
 				</DrawerHeader>
 				{content}
