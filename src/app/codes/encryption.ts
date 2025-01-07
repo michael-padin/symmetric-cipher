@@ -1,6 +1,6 @@
 import crypto from "crypto";
 
-// Caesar Cipher
+// MARK: - Caesar Cipher
 export function caesarEncrypt(text: string, shift: number): string {
     return text
         .split("")
@@ -19,6 +19,7 @@ export function caesarDecrypt(text: string, shift: number): string {
 }
 
 
+// MARK: - Vigenere Cipher
 export function vigenereCipher(
 	text: string,
 	key: string,
@@ -52,6 +53,8 @@ export function vigenereCipher(
 	return result;
 }
 
+
+// MARK: - Playfair Cipher
 export function playfairCipher(
 	text: string,
 	key: string,
@@ -120,6 +123,7 @@ export function playfairCipher(
 	return result;
 }
 
+// MARK: - Single Columnar Transposition
 export function singleColumnarTransposition(
 	text: string,
 	key: string,
@@ -225,6 +229,7 @@ export function singleColumnarTransposition(
 	}
 }
 
+// MARK: - Double Columnar Transposition
 export function doubleColumnarTransposition(
 	text: string,
 	key1: string,
@@ -240,6 +245,7 @@ export function doubleColumnarTransposition(
 	}
 }
 
+// MARK: - AES
 export  function aes(
 	text: string,
 	key: string,

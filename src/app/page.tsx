@@ -1,22 +1,29 @@
+import { Metadata } from "next";
 import { FunFact } from "./_components/fun-fact";
 import MemberList from "./_components/member-list";
 import { SymmetricCipher } from "./_components/symmetric-cipher";
+import { SymmetricCipherV2 } from "./_components/symmetric-cipher-v2";
+
+export const metadata: Metadata = {
+	title: "Symmetric Cipher",
+	description: "Encrypt or decrypt your secret messages",
+}
 
 export default function Home() {
 	return (
 		<main className="relative z-10">
-			<div className="mt-4 space-y-8 p-4">
-				<div className="space-y-2">
+			<div className="p-2 py-4">
+				<div className="space-y-2 lg:space-y-4">
 					<h1 className="text-white font-black text-center text-4xl uppercase">
 						Team Padin
 					</h1>
 					<div className="flex justify-center">
 						<MemberList />
 					</div>
+				<div className="grid lg w-full mx-auto max-w-screen-md gap-4">
+					<SymmetricCipherV2 />
+					{/* <FunFact /> */}
 				</div>
-				<div className="grid lg:grid-cols-2 max-w-screen-lg mx-auto gap-4">
-					<SymmetricCipher />
-					<FunFact />
 				</div>
 			</div>
 		</main>
