@@ -79,7 +79,7 @@ export const playfairCipher = {
     const used = new Set();
 
     // Add characters from the key to the table, ensuring no duplicates
-    for (let char of key) {
+    for (const char of key) {
       if (!used.has(char)) {
         used.add(char);
         table.push(char);
@@ -87,7 +87,7 @@ export const playfairCipher = {
     }
 
     // Fill in the rest of the table with unused alphabet letters
-    for (let char of alphabet) {
+    for (const char of alphabet) {
       if (!used.has(char)) {
         used.add(char);
         table.push(char);
@@ -122,7 +122,7 @@ export const playfairCipher = {
 
     let result = "";
     // Encrypt each pair of characters based on their positions in the Playfair table
-    for (let pair of splitText) {
+    for (const pair of splitText) {
       const a = pair[0];
       const b = pair[1];
       const rowA = Math.floor(table.indexOf(a) / 5);
@@ -153,7 +153,7 @@ export const playfairCipher = {
     let result = "";
 
     // Decrypt each pair of characters based on their positions in the Playfair table
-    for (let pair of splitText) {
+    for (const pair of splitText) {
       const a = pair[0];
       const b = pair[1];
       const rowA = Math.floor(table.indexOf(a) / 5);
@@ -201,7 +201,7 @@ export const columnarCipher = {
     const grid: string[][] = Array.from({ length: rows }, () => Array(columns).fill("_"));
     const keyOrder = key.split("").map((k, i) => ({ k, i })).sort((a, b) => a.k.localeCompare(b.k)).map(({ i }) => i);
 
-    const orderNumber = text.split("").map((char, index) => {
+    const orderNumber = text.split("").map((char) => {
       return text.split("").slice().sort().indexOf(char) + 1;
     });
 
@@ -227,7 +227,7 @@ export const columnarCipher = {
 
     // Fill the grid column-wise based on sorted key
     let index = 0;
-    for (let i of keyOrder) {
+    for (const i of keyOrder) {
       for (let row = 0; row < rows; row++) {
         if (index < encrypted.length) {
           grid[row][i] = encrypted[index++];

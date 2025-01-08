@@ -1,7 +1,5 @@
 import { Metadata } from "next";
-import { FunFact } from "./_components/fun-fact";
 import MemberList from "./_components/member-list";
-import { SymmetricCipher } from "./_components/symmetric-cipher";
 import { SymmetricCipherV2 } from "./_components/symmetric-cipher-v2";
 
 export const metadata: Metadata = {

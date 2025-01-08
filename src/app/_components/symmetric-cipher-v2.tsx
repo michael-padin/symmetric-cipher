@@ -38,6 +38,25 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { AlertTriangle } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 
+interface Result {
+	operation: "encrypt" | "decrypt";
+	encrypted?: string;
+	key?: string;
+	decrypted?: string;
+	matrix?: string[];
+	firstKeyOrder?: number[];
+	plainText?: string;
+	firstKey?: string;
+	secondKeyOrder?: number[];
+	keyOrder?: number[];
+	secondKey?: string;
+	firstGrid?: string[][];
+	grid?: string[][];
+	secondGrid?: string[][];
+	splitPlaintext?: string[];
+	intermediateText?: string;
+}
+
 const defaults = {
 	text: "wearediscoveredsaveyourself",
 	key: "KEYWORD",
@@ -81,7 +100,7 @@ export function SymmetricCipherV2() {
 	} | null>(null);
 
 	const handleEncrypt = () => {
-		let result: any = { operation: "encrypt" };
+		let result: Result = { operation: "encrypt" };
 		setError("");
 
 		try {
@@ -125,7 +144,7 @@ export function SymmetricCipherV2() {
 	};
 
 	const handleDecrypt = () => {
-		let result: any = { operation: "decrypt" };
+		let result: Result = { operation: "decrypt" };
 		setError("");
 		try {
 			if (!text) throw new Error("Input text is required");
@@ -245,7 +264,7 @@ export function SymmetricCipherV2() {
 						<Label htmlFor="cipher-type">Cipher Type</Label>
 						<Select
 							value={cipherType}
-							onValueChange={(value: any) => setCipherType(value)}
+							onValueChange={(value: CipherType) => setCipherType(value)}
 						>
 							<SelectTrigger id="cipher-type">
 								<SelectValue placeholder="Select cipher type" />
@@ -369,7 +388,7 @@ export function SymmetricCipherV2() {
 													<CopyButton text={output.decrypted} />
 												</p>
 											)}
-												{output.plainText && (
+											{output.plainText && (
 												<p className="break-all">
 													<strong>Plain Text:</strong> {output.plainText}{" "}
 													<CopyButton text={output.plainText} />
