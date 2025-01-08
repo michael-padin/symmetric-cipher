@@ -64,14 +64,18 @@ export function SymmetricCipherV2() {
 	const [output, setOutput] = useState<{
 		operation: "encrypt" | "decrypt";
 		encrypted?: string;
+		key?: string;
 		decrypted?: string;
 		matrix?: string[];
-		firstSortedKey?: { k: string; i: number }[];
+		firstKeyOrder?: number[];
+		plainText?: string;
+		firstKey?: string;
+		secondKeyOrder?: number[];
+		keyOrder?: number[];
+		secondKey?: string;
 		firstGrid?: string[][];
 		grid?: string[][];
 		secondGrid?: string[][];
-		sortedKey?: { k: string; i: number }[];
-		secondSortedKey?: { k: string; i: number }[];
 		splitPlaintext?: string[];
 		intermediateText?: string;
 	} | null>(null);
@@ -166,7 +170,8 @@ export function SymmetricCipherV2() {
 
 	const renderGrid = (
 		grid: string[][],
-		sortedKey: { k: string; i: number }[],
+		key: string,
+		keyOrder: number[],
 		title: string,
 		inputText: string,
 		outputText: string
@@ -174,41 +179,44 @@ export function SymmetricCipherV2() {
 		<div className="mt-4 ">
 			<h4 className="text-md font-semibold mb-2">{title}</h4>
 			<div className="border rounded-lg">
-                <Table className="">
-                    <TableHeader>
-                        <TableRow>
-                            {sortedKey.map(({ k }, index) => (
-                                <TableHead key={index} className="text-center">
-                                    {k}
-                                </TableHead>
-                            ))}
-                        </TableRow>
-                    </TableHeader>
-                    <TableBody className="">
-                        <TableRow>
-                            {sortedKey.map(({ i }, index) => (
-                                <TableCell key={index} className="text-center">
-                                    {i + 1}
-                                </TableCell>
-                            ))}
-                        </TableRow>
-                        {grid.map((row, i) => (
-                            <TableRow key={i}>
-                                {row.map((cell, j) => (
-                                    <TableCell key={j} className="text-center">
-                                        {cell}
-                                    </TableCell>
-                                ))}
-                            </TableRow>
-                        ))}
-                    </TableBody>
-                </Table>
-            </div>
+				<Table className="">
+					<TableHeader>
+						<TableRow>
+							{/* {keyOrder.map((order, index) => (
+								<TableCell key={`${index}` } className="text-center">
+									{order + 1}
+								</TableCell>
+								
+							))} */}
+						</TableRow>
+					</TableHeader>
+					<TableBody className="">
+						<TableRow>
+							{key.split("").map((k, index) => (
+								<TableHead key={index} className="text-center">
+									{k}
+								</TableHead>
+							))}
+						</TableRow>
+						{grid.map((row, i) => (
+							<TableRow key={i}>
+								{row.map((cell, j) => (
+									<TableCell key={j} className="text-center">
+										{cell}
+									</TableCell>
+								))}
+							</TableRow>
+						))}
+					</TableBody>
+				</Table>
+			</div>
 			<p className="mt-2">
-				<strong>Input:</strong><br /> {inputText}
+				<strong>Input:</strong>
+				<br /> {inputText}
 			</p>
 			<p className="mt-2">
-				<strong>Output:</strong><br /> {outputText}
+				<strong>Output:</strong>
+				<br /> {outputText}
 			</p>
 		</div>
 	);
@@ -246,13 +254,13 @@ export function SymmetricCipherV2() {
 								<SelectItem value="caesar">Caesar Cipher</SelectItem>
 								<SelectItem value="vigenere">Vigenère Cipher</SelectItem>
 								<SelectItem value="playfair">Playfair Cipher</SelectItem>
-								<SelectItem value="aes">AES</SelectItem>
 								<SelectItem value="columnar">
 									Columnar Transposition Cipher
 								</SelectItem>
 								<SelectItem value="doubleColumnar">
 									Double Columnar Transposition Cipher
 								</SelectItem>
+								<SelectItem value="aes">AES</SelectItem>
 							</SelectContent>
 						</Select>
 					</div>
@@ -320,124 +328,142 @@ export function SymmetricCipherV2() {
 						</div>
 					</div>
 				</div>
-                
+
 				{output && !error && (
-                    <>
-                    <Separator className="my-4"/>
-					<div className="flex flex-col">
-						<CardTitle className="text-3xl font-bold text-primary mb-1.5">
-							Results
-						</CardTitle>{" "}
-						<div className="flex flex-col flex-wrap overflow-hidden">
-							{output.operation === "encrypt" ? (
-								<>
-									{output.encrypted && (
-										<p className="break-all">
-											<strong>
-												Encrypted Text:
-												<br />
-											</strong>{" "}
-											{output.encrypted} <CopyButton text={output.encrypted} />
-										</p>
-									)}
-									{output.decrypted && (
-										<p className="break-all">
-											<strong>Decrypted Text:</strong> {text}{" "}
-											<CopyButton text={output.decrypted} />
-										</p>
-									)}
-								</>
-							) : (
-								<>
-									{output.decrypted && (
-										<p className="break-all">
-											<strong>
-												Decrypted Text:
-												<br />
-											</strong>{" "}
-											{output.decrypted} <CopyButton text={output.decrypted} />
-										</p>
-									)}
-									{output.encrypted && (
-										<p className="break-all">
-											<strong>
-												Encrypted Text:
-												<br />
-											</strong>{" "}
-											{output.encrypted} <CopyButton text={output.encrypted} />
-										</p>
-									)}
-								</>
-							)}
-						</div>
-						{output.matrix && (
-							<div className="mt-4">
-								<h4 className="text-md font-semibold mb-2">Playfair Matrix:</h4>
-								<Table>
-									<TableBody>
-										{Array.from({ length: 5 }, (_, i) => (
-											<TableRow key={i}>
-												{Array.from({ length: 5 }, (_, j) => (
-													<TableCell key={j} className="text-center w-min">
-														{output.matrix![i * 5 + j]}
-													</TableCell>
-												))}
-											</TableRow>
-										))}
-									</TableBody>
-								</Table>
+					<>
+						<Separator className="my-4" />
+						<div className="flex flex-col">
+							<CardTitle className="text-3xl font-bold text-primary mb-1.5">
+								Results
+							</CardTitle>{" "}
+							<div className="flex flex-col flex-wrap overflow-hidden">
+								{output.operation === "encrypt" ? (
+									<>
+										{output.encrypted && (
+											<p className="break-all">
+												<strong>
+													Encrypted Text:
+													<br />
+												</strong>{" "}
+												{output.encrypted}{" "}
+												<CopyButton text={output.encrypted} />
+											</p>
+										)}
+										{output.decrypted && (
+											<p className="break-all">
+												<strong>Decrypted Text:</strong> {text}{" "}
+												<CopyButton text={output.decrypted} />
+											</p>
+										)}
+									</>
+								) : (
+									<>
+										<div className="space-y-2">
+											{output.decrypted && (
+												<p className="break-all">
+													<strong>
+														Decrypted Text:
+														<br />
+													</strong>{" "}
+													{output.decrypted}{" "}
+													<CopyButton text={output.decrypted} />
+												</p>
+											)}
+												{output.plainText && (
+												<p className="break-all">
+													<strong>Plain Text:</strong> {output.plainText}{" "}
+													<CopyButton text={output.plainText} />
+												</p>
+											)}
+											{output.encrypted && (
+												<p className="break-all">
+													<strong>
+														Encrypted Text:
+														<br />
+													</strong>{" "}
+													{output.encrypted}{" "}
+													<CopyButton text={output.encrypted} />
+												</p>
+											)}
+										</div>
+									</>
+								)}
 							</div>
-						)}
-						{output.splitPlaintext && (
-							<div className="mt-4">
-								<h4 className="text-md font-semibold mb-2">Split Plaintext:</h4>
-								<p>{output.splitPlaintext.join(" ")}</p>
-							</div>
-						)}
-						{cipherType === "columnar" &&
-							output.grid &&
-							output.sortedKey &&
-							renderGrid(
-								output.grid,
-								output.sortedKey,
-								"Columnar Transposition Grid",
-								output.operation === "encrypt" ? text : output.encrypted!,
-								output.operation === "encrypt"
-									? output.encrypted!
-									: output.decrypted!
-							)}
-						{cipherType === "doubleColumnar" &&
-							output.firstGrid &&
-							output.secondGrid &&
-							output.firstSortedKey &&
-							output.secondSortedKey && (
-								<div className="space-y-4">
-									{renderGrid(
-										output.firstGrid!,
-										output.secondSortedKey,
-										output.operation === "encrypt"
-											? "First Columnar Transposition Grid"
-											: "Second Columnar Transposition Grid",
-										output.operation === "encrypt"
-											? text
-											: output.intermediateText!,
-										output.intermediateText!
-									)}
-									{renderGrid(
-										output.secondGrid,
-										output.firstSortedKey,
-										output.operation === "encrypt"
-											? "Second Columnar Transposition Grid"
-											: "First Columnar Transposition Grid",
-										output.intermediateText!,
-										output.operation === "encrypt"
-											? output.encrypted!
-											: output.decrypted!
-									)}
+							{output.matrix && (
+								<div className="mt-4">
+									<h4 className="text-md font-semibold mb-2">
+										Playfair Matrix:
+									</h4>
+									<Table>
+										<TableBody>
+											{Array.from({ length: 5 }, (_, i) => (
+												<TableRow key={i}>
+													{Array.from({ length: 5 }, (_, j) => (
+														<TableCell key={j} className="text-center w-min">
+															{output.matrix![i * 5 + j]}
+														</TableCell>
+													))}
+												</TableRow>
+											))}
+										</TableBody>
+									</Table>
 								</div>
 							)}
-					</div>
-                    </>
+							{output.splitPlaintext && (
+								<div className="mt-4">
+									<h4 className="text-md font-semibold mb-2">
+										Split Plaintext:
+									</h4>
+									<p>{output.splitPlaintext.join(" ")}</p>
+								</div>
+							)}
+							{cipherType === "columnar" &&
+								output.grid &&
+								output.keyOrder &&
+								renderGrid(
+									output.grid,
+									output.key!,
+									output.keyOrder,
+									"Columnar Transposition Grid",
+									output.operation === "encrypt" ? text : output.encrypted!,
+									output.operation === "encrypt"
+										? output.encrypted!
+										: output.decrypted!
+								)}
+							{cipherType === "doubleColumnar" &&
+								output.firstGrid &&
+								output.secondGrid &&
+								output.firstKeyOrder &&
+								output.secondKeyOrder && (
+									<div className="space-y-4">
+										{renderGrid(
+											output.firstGrid!,
+											output.firstKey!,
+											output.firstKeyOrder,
+											output.operation === "encrypt"
+												? "First Columnar Transposition Grid"
+												: "Second Columnar Transposition Grid",
+											output.operation === "encrypt"
+												? text
+												: output.intermediateText!,
+											output.intermediateText!
+										)}
+										{renderGrid(
+											output.secondGrid,
+											output.secondKey!,
+											output.secondKeyOrder,
+											output.operation === "encrypt"
+												? "Second Columnar Transposition Grid"
+												: "First Columnar Transposition Grid",
+											output.intermediateText!,
+											output.operation === "encrypt"
+												? output.encrypted!
+												: output.decrypted!
+										)}
+									</div>
+								)}
+						</div>
+					</>
 				)}
 				{error && (
 					<div className="mt-8 flex flex-col">
