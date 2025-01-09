@@ -1,4 +1,4 @@
-import crypto, { enc } from "crypto-js";
+import crypto from "crypto-js";
 
 // Caesar Cipher: Encrypts and decrypts text using a simple letter shift
 export const caesarCipher = {
@@ -229,9 +229,6 @@ export const columnarCipher = {
 			return text.split("").slice().sort().indexOf(char) + 1;
 		});
 
-    console.log('keyOrder :>> ', keyOrder);
-
-
 		// Fill the grid with text
 		for (let i = 0; i < text.length; i++) {
 			grid[Math.floor(i / columns)][i % columns] = text[i];
@@ -263,7 +260,7 @@ export const columnarCipher = {
 			.sort((a, b) => a.k.localeCompare(b.k))
 			.map(({ i }) => i);
 
-      console.log('keyOrder :>> ', keyOrder);
+		console.log("keyOrder :>> ", keyOrder);
 
 		// Fill the grid column-wise based on sorted key
 		let index = 0;

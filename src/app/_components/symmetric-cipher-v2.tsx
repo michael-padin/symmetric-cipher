@@ -35,14 +35,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { CopyButton } from "./copy-button";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import {
-	AlertTriangle,
-	Lock,
-	RefreshCcw,
-	RefreshCcwDot,
-	Trash2,
-	Unlock,
-} from "lucide-react";
+import { AlertTriangle, Lock, Trash2, Unlock } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 
 interface Result {

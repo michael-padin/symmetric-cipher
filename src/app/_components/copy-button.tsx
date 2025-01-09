@@ -9,7 +9,7 @@ interface CopyButtonProps {
 	className?: string;
 }
 
-export function CopyButton({ text, className }: CopyButtonProps) {
+export function CopyButton({ text }: CopyButtonProps) {
 	const [isCopied, setIsCopied] = useState(false);
 
 	const copy = async () => {
