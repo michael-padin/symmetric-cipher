@@ -65,9 +65,9 @@ interface Result {
 }
 
 const defaults = {
-	text: "HIDE ALL KEYS",
-	key: "COVER",
-	key2: "LOCK",
+	text: "",
+	key: "",
+	key2: "",
 	shift: 3,
 	cipherType: "doubleColumnar" as CipherType,
 };
