@@ -69,7 +69,7 @@ const defaults = {
 	key: "",
 	key2: "",
 	shift: 3,
-	cipherType: "doubleColumnar" as CipherType,
+	cipherType: "caesar" as CipherType,
 };
 
 type CipherType =
