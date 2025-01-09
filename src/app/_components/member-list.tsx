@@ -24,16 +24,16 @@ import { Users } from "lucide-react";
 import { useMediaQuery } from "../hooks/use-media-query";
 
 const teamMembers = [
-	{ name: "Apple Jane Monic-Buro Caminero", role: "", avatar: "AJ" },
-	{ name: "Airiz Alcazaren", role: "", avatar: "AA" },
-	{ name: "Arvilyn Mae Alegado", role: "", avatar: "AM" },
-	{ name: "Garth Jade Garvez", role: "", avatar: "GJ" },
-	{ name: "Gino Carrillo", role: "", avatar: "GC" },
-	{ name: "James Ryan Cejas", role: "", avatar: "JR" },
-	{ name: "James Villamora", role: "", avatar: "JV" },
-	{ name: "Kristin Manila", role: "", avatar: "KM" },
-	{ name: "Margie Dayag Alconera", role: "", avatar: "MD" },
-	{ name: "Michael Padin", role: "", avatar: "ML" },
+	{ name: "Garth Jade Garvez", role: "Programmer", avatar: "GJ" },
+	{ name: "Michael Padin", role: "Programmer", avatar: "ML" },
+	{ name: "Apple Jane Monic-Buro Caminero", role: "UI/UX", avatar: "AJ" },
+	{ name: "Kristin Manila", role: "UI/UX", avatar: "KM" },
+	{ name: "Airiz Alcazaren", role: "SCRIPT WRITER & DOCUMENTATION", avatar: "AA" },
+	{ name: "Arvilyn Mae Alegado", role: "SCRIPT WRITER & DOCUMENTATION", avatar: "AM" },
+	{ name: "James Villamora", role: "SCRIPT WRITER & DOCUMENTATION", avatar: "JV" },
+	{ name: "Margie Dayag Alconera", role: "SCRIPT WRITER & DOCUMENTATION", avatar: "MD" },
+	{ name: "Gino Carrillo", role: "Video Editor", avatar: "GC" },
+	{ name: "James Ryan Cejas", role: "Video Editor", avatar: "JR" },
 ];
 
 const MemberCard = ({

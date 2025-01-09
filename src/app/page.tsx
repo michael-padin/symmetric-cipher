@@ -18,7 +18,7 @@ export default function Home() {
 					<div className="flex justify-center">
 						<MemberList />
 					</div>
-				<div className="grid lg w-full mx-auto max-w-screen-md gap-4">
+				<div className="grid lg w-full mx-auto max-w-screen-sm gap-4">
 					<SymmetricCipherV2 />
 					{/* <FunFact /> */}
 				</div>
