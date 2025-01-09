@@ -253,7 +253,7 @@ export function SymmetricCipherV2() {
 			</div>
 			<p className="mt-2">
 				<strong>Output:</strong>
-				<br /> {outputText}
+				<br /> {outputText} <CopyButton text={outputText} />
 			</p>
 		</div>
 	);
